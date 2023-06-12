@@ -11,7 +11,7 @@ const Loading = () => {
           alt="loader"
           className="object-contain"
         />
-        <p>Please Wait ....</p>
+         <p>Please Wait ....</p>
       </div>
     </>
   );

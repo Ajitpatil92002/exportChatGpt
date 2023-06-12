@@ -9,7 +9,7 @@ const Nav = () => {
 
       <div className="flex">
         <div className="flex gap-3 md:gap-5">
-          <Link href="/prompts" className="black_btn">
+          <Link href="/chat-gpt" className="black_btn">
             Discover
           </Link>
         </div>

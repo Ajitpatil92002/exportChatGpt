@@ -11,7 +11,7 @@ export async function getGptChat(url) {
     let title = await page.evaluate(() => document.title);
 
     if (title === "404: This page could not be found") {
-      return [];
+      return new Error("Not Found");
     } else {
       ChatsWithGPT = await page.evaluate(() => {
         const OuterGroupDiv = Array.from(
@@ -42,18 +42,25 @@ export async function getGptChat(url) {
 
     return { title, ChatsWithGPT };
   } else {
-    throw new Error("URL is NOT Valid");
+    return new Error("Not Found");
   }
 }
 
-export function countWords(arr) {
-  let tcount = 0;
-  for (let i = 0; i < arr.length; i++) {
-    let qusAns = arr[i];
-    let qwordCount = qusAns.question.split(" ").length;
-    let awordCount = qusAns.answer.split(" ").length;
-    tcount = tcount + qwordCount + awordCount;
+
+export function string_to_slug (str) {
+  str = str.replace(/^\s+|\s+$/g, ''); // trim
+  str = str.toLowerCase();
+
+  // remove accents, swap ñ for n, etc
+  var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+  var to   = "aaaaeeeeiiiioooouuuunc------";
+  for (var i=0, l=from.length ; i<l ; i++) {
+      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
   }
 
-  return tcount;
+  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-'); // collapse dashes
+
+  return str;
 }

@@ -28,7 +28,7 @@ const Card = ({ question, answer }) => {
           className="rounded-full object-contain bg-gray-600 self-start"
         />
         <div className="content self-end md:self-start ml-5 my-3 md:ml-0">
-          {parse(answer)}
+          {parse(answer.text)}
         </div>
       </div>
     </div>

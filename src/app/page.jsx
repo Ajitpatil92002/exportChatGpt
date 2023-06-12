@@ -1,4 +1,5 @@
-import Feed from "@/components/Feed";
+import ChatsList from "@/components/ChatsList";
+import ExportGPTSearch from "@/components/ExportGPTSearch";
 
 export default function Home() {
   return (
@@ -15,7 +16,10 @@ export default function Home() {
         </p>
 
         {/* Feed */}
-        <Feed />
+        <section className="feed">
+          <ExportGPTSearch />
+          <ChatsList />
+        </section>
       </sections>
     </>
   );

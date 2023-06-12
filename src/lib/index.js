@@ -104,8 +104,8 @@ export function countOccurenceOfWords(str) {
 export function convertArrayTostring(arr) {
   let str = "";
   for (let i = 0; i < arr.length; i++) {
-    const ques = arr[i].question;
-    const ans = arr[i].answer;
+    const ques = arr[i].text;
+    const ans = arr[i].answer.text;
     str = str + ques + ans;
   }
   return str;
@@ -209,4 +209,29 @@ export function downloadHTML(filename) {
 
   // Release the URL object
   URL.revokeObjectURL(url);
+}
+
+export function isMatchingURLPattern(url) {
+  const regex = /^https:\/\/chat\.openai\.com\/share\/[a-zA-Z0-9-]+$/;
+  return regex.test(url);
+}
+
+export async function createChatApi(url) {
+  try {
+    const response = await fetch("/api/chat-gpt/new", {
+      method: "POST",
+      body: JSON.stringify({
+        chatGptUrl: url,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toast.success(`chat created`);
+      return data;
+    }
+  } catch (error) {
+    return false;
+  }
 }

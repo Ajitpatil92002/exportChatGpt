@@ -1,23 +1,27 @@
-import Badge from "@/components/Badge";
-import CardList from "@/components/CardList";
-import { getGptChat ,countWords} from "@/utils";
+import ChatsList from "@/components/ChatsList";
+import React from "react";
 
-const page = async ({ searchParams }) => {
-  let { title, ChatsWithGPT } = await getGptChat(searchParams.url);
+export const metadata = {
+  title:
+    "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
+  description:
+    "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
+};
 
+const page = () => {
   return (
     <>
-      <section className="w-full">
-        <h1 className="head_text text-center">
-          <span className="blue_gradient">{title}</span>
-        </h1>
+      <h1 className="text-4xl text-center font-extrabold leading-[1.15]">
+        <span className="blue_gradient">
+          Explore Captivating Conversations with GPT:
+        </span>
+        <span>🤖🗣️</span> <br className="max-md:hidden" />
+        <span className="blue_gradient">Unveiling the Power of AI</span>
+        <span>🚀✨</span>
+      </h1>
 
-        <div className="no-print mt-10 flex justify-center items-center space-x-2 flex-wrap space-y-1">
-          <Badge str={`Total ${ChatsWithGPT.length} Prompts`} />
-          <Badge str={`Total ${countWords(ChatsWithGPT)} Words Generated`} />
-        </div>
-
-        {<CardList title={title} ChatsWithGPT={ChatsWithGPT} />}
+      <section className=" mx-auto w-full">
+        <ChatsList />
       </section>
     </>
   );

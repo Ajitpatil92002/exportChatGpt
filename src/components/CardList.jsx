@@ -16,8 +16,8 @@ const CardList = ({ ChatsWithGPT, title }) => {
     let tcount = 0;
     for (let i = 0; i < arr.length; i++) {
       let qusAns = arr[i];
-      let qwordCount = qusAns.question.split(" ").length;
-      let awordCount = qusAns.answer.split(" ").length;
+      let qwordCount = qusAns.text.split(" ").length;
+      let awordCount = qusAns.answer.text.split(" ").length;
       tcount = tcount + qwordCount + awordCount;
     }
 
@@ -60,7 +60,7 @@ const CardList = ({ ChatsWithGPT, title }) => {
       </div>
       <div id="content" className="mt-5 prompt_layout">
         {ChatsWithGPT.map((post, i) => (
-          <Card key={i} answer={post.answer} question={post.question} />
+          <Card key={i} answer={post.answer} question={post.text} />
         ))}
         <div className="no-print flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"></div>
       </div>
