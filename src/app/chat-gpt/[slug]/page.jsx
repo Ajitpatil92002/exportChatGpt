@@ -39,7 +39,13 @@ const page = async ({ params }) => {
           <Badge str={`Total ${countWords(chats.questions)} Words Generated`} />
         </div>
 
-        {<CardList title={chats.title} ChatsWithGPT={chats.questions} />}
+        {
+          <CardList
+            chatgptUrl={chats.chatgptUrl}
+            title={chats.title}
+            ChatsWithGPT={chats.questions}
+          />
+        }
       </section>
     </>
   );

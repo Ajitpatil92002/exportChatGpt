@@ -10,8 +10,7 @@ import {
 import Card from "./Card";
 import toast from "react-hot-toast";
 
-const CardList = ({ ChatsWithGPT, title }) => {
-
+const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
   function countWords(arr) {
     let tcount = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -48,6 +47,10 @@ const CardList = ({ ChatsWithGPT, title }) => {
   return (
     <>
       <div className="no-print mt-4 flex justify-center items-center space-x-2 flex-wrap space-y-1">
+        <a  className="black_btn" href={`${chatgptUrl}`} target="_blank">
+          <span>Continue With this Chat</span>
+        </a>
+
         <button onClick={printContent} className="black_btn">
           Export Chat GPT to PDF File
         </button>
