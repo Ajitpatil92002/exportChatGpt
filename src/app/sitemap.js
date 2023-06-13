@@ -1,5 +1,5 @@
 export default async function sitemap() {
-  const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt`, {
+  const res = await fetch(`${process.env.BASE_URL}/api/chats`, {
     cache: "no-store",
   });
 
@@ -10,7 +10,7 @@ export default async function sitemap() {
     lastModified: chat.updatedAt,
   }));
 
-  const routes = ["", "/chat-gpt"].map((route) => ({
+  const routes = ["", "chat-gpt"].map((route) => ({
     url: `${process.env.BASE_URL}/${route}`,
     lastModified: new Date().toISOString(),
   }));
