@@ -50,7 +50,7 @@ const ExportGPTSearch = () => {
             alt="loader"
             className="object-contain"
           />
-          <p>Please Wait Untill we analyse You Chat ....</p>
+          <p>Please Wait Untill we analyse Your Chat ....</p>
         </div>
       )}
     </>

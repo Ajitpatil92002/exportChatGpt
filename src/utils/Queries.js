@@ -82,9 +82,19 @@ export async function getChatGpt(slug) {
   }
 }
 
-export async function getChats() {
+export async function getChats({ page=0 }) {
+
+
+  const PER_PAGE = 2;
+
+  const options = {
+    take: PER_PAGE,
+    skip: (page ? page - 1 : 0) * PER_PAGE,
+  };
+
   try {
     const chats = await prisma.chat.findMany({
+      ...options,
       include: {
         questions: {
           include: {
@@ -95,6 +105,17 @@ export async function getChats() {
     });
     await prisma.$disconnect();
     return chats;
+  } catch (error) {
+    await prisma.$disconnect();
+    throw new Error("Something gone Wrong");
+  }
+}
+
+export async function getTotalChatCount() {
+  try {
+    const chatCount = await prisma.chat.count();
+    await prisma.$disconnect();
+    return chatCount;
   } catch (error) {
     await prisma.$disconnect();
     throw new Error("Something gone Wrong");

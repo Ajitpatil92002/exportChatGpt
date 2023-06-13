@@ -19,6 +19,6 @@ export const POST = async (req, res) => {
     return new Response(JSON.stringify(isChatExits), { status: 201 });
   } catch (err) {
     console.log(err);
-    return new Response("Failed to create a new prompt", { status: 500 });
+    return new Response("Failed to create a new chat", { status: 500 });
   }
 };

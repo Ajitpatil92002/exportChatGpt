@@ -1,7 +1,33 @@
 import ChatsList from "@/components/ChatsList";
 import ExportGPTSearch from "@/components/ExportGPTSearch";
+import { Pagination } from "@/components/Pagination";
 
-export default function Home() {
+async function getData(page) {
+  const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt?page=${page}`, {
+    cache: "no-store",
+  });
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+export default async function Home({ searchParams }) {
+  let currentPage = 1;
+
+  if (Number(searchParams.page) >= 1) {
+    currentPage = Number(searchParams.page);
+  }
+
+  let {chats, chatCount} = await getData(currentPage);
+
+
+  let totalPages = Math.ceil(chatCount/12);
+
   return (
     <>
       <sections className="w-full flex-center flex-col">
@@ -18,8 +44,9 @@ export default function Home() {
         {/* Feed */}
         <section className="feed">
           <ExportGPTSearch />
-          <ChatsList />
+          <ChatsList chats={chats} />
         </section>
+        <Pagination page={currentPage} pageCount={totalPages} />
       </sections>
     </>
   );

@@ -1,14 +1,40 @@
 import ChatsList from "@/components/ChatsList";
-import React from "react";
+import { Pagination } from "@/components/Pagination";
 
-export const metadata = {
-  title:
-    "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
-  description:
-    "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
-};
+export async function generateMetadata({ params }) {
+  return {
+    title:
+      "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
+    description:
+      "Explore Captivating Conversations with GPT: 🤖🗣️ Unveiling the Power of AI 🚀✨",
+  };
+}
 
-const page = () => {
+async function getData(page) {
+  const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt?page=${page}`, {
+    cache: "no-store",
+  });
+
+  // Recommendation: handle errors
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+const page = async ({ searchParams }) => {
+  let currentPage = 1;
+
+  if (Number(searchParams.page) >= 1) {
+    currentPage = Number(searchParams.page);
+  }
+
+  let { chats, chatCount } = await getData(currentPage);
+
+  let totalPages = Math.ceil(chatCount / 12);
+
   return (
     <>
       <h1 className="text-4xl text-center font-extrabold leading-[1.15]">
@@ -21,8 +47,9 @@ const page = () => {
       </h1>
 
       <section className=" mx-auto w-full">
-        <ChatsList />
+        <ChatsList chats={chats} />
       </section>
+      <Pagination page={currentPage} pageCount={totalPages} />
     </>
   );
 };

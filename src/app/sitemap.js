@@ -1,9 +1,11 @@
-import { getChats } from "@/utils/Queries";
-
 export default async function sitemap() {
-  const res = await getChats();
+  const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt`, {
+    cache: "no-store",
+  });
 
-  const chats = res.map((chat) => ({
+  let data = await res.json();
+
+  const chats = data.map((chat) => ({
     url: `${process.env.BASE_URL}/chat-gpt/${chat.slug}`,
     lastModified: chat.updatedAt,
   }));

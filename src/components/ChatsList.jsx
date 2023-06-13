@@ -1,9 +1,7 @@
-import { getChats } from "@/utils/Queries";
 import Image from "next/image";
 import Link from "next/link";
 
-const ChatsList = async () => {
-  const chats = await getChats();
+const ChatsList = async ({chats}) => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString).toLocaleDateString("en-US", {
@@ -19,7 +17,7 @@ const ChatsList = async () => {
     <>
       <div className="mt-16 space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3">
         {chats.map((chat) => (
-          <div className="flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
+          <div key={chat.id} className="flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit">
             <div className="flex justify-between items-start gap-5">
               <Link href={`/chat-gpt/${chat.slug}`}>
                 <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">

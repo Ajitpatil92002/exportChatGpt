@@ -163,6 +163,11 @@ pre>div>div:nth-child(1) {
 /* Tailwind Styles */
 @layer components {
 
+  .disabled {
+    @apply opacity-50 cursor-not-allowed
+}
+
+
 
   ul {
     list-style-type:disc;
