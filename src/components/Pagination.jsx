@@ -35,7 +35,7 @@ export const Pagination = ({ page, pageCount }) => {
     <>
       <div className="items-center space-y-2 text-xs sm:space-y-0 sm:space-x-3 sm:flex">
         <span className="block">
-          Page {page * 12} of {pageCount * 12}
+          Page {page} of {pageCount}
         </span>
         <div className="space-x-1">
           <button
