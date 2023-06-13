@@ -1,9 +1,29 @@
-const puppeteer = require("puppeteer");
+let chrome = {};
+let puppeteer;
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  chrome = require("chrome-aws-lambda");
+  puppeteer = require("puppeteer-core");
+} else {
+  puppeteer = require("puppeteer");
+}
 
 export async function getGptChat(url) {
   if (url) {
+    let options = {};
+
+    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+      options = {
+        args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+        defaultViewport: chrome.defaultViewport,
+        executablePath: await chrome.executablePath,
+        headless: true,
+        ignoreHTTPSErrors: true,
+      };
+    }
+
     let ChatsWithGPT;
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.setJavaScriptEnabled(true);
     await page.goto(url);
@@ -46,21 +66,21 @@ export async function getGptChat(url) {
   }
 }
 
-
-export function string_to_slug (str) {
-  str = str.replace(/^\s+|\s+$/g, ''); // trim
+export function string_to_slug(str) {
+  str = str.replace(/^\s+|\s+$/g, ""); // trim
   str = str.toLowerCase();
 
   // remove accents, swap ñ for n, etc
   var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-  var to   = "aaaaeeeeiiiioooouuuunc------";
-  for (var i=0, l=from.length ; i<l ; i++) {
-      str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+  var to = "aaaaeeeeiiiioooouuuunc------";
+  for (var i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
   }
 
-  str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-      .replace(/\s+/g, '-') // collapse whitespace and replace by -
-      .replace(/-+/g, '-'); // collapse dashes
+  str = str
+    .replace(/[^a-z0-9 -]/g, "") // remove invalid chars
+    .replace(/\s+/g, "-") // collapse whitespace and replace by -
+    .replace(/-+/g, "-"); // collapse dashes
 
   return str;
 }
