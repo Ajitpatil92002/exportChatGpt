@@ -8,6 +8,8 @@ export const POST = async (req, res) => {
 
     if (!isChatExits) {
       let { title, ChatsWithGPT } = await getGptChat(chatGptUrl);
+
+      console.log("fetched data",title,chatGptUrl);
       
       let Chats = await CreateChat({
         title,
