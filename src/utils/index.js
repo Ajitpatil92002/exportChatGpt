@@ -5,7 +5,7 @@ export async function getGptChat(url) {
   let queryString = qs.stringify({
     url,
   });
-  const res = await axios.get(`${process.env.API_URL}?${queryString}`);
+  const res = await axios.get(`${process.env.API_URL}/getChatGptHtml?${queryString}`);
   return res.data
 }
 
