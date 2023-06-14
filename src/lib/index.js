@@ -235,3 +235,41 @@ export async function createChatApi(url) {
     return false;
   }
 }
+
+
+
+/*
+
+ const downloadPdf = async () => {
+    try {
+      const cards = Array.from(document.getElementsByClassName("prompt_card"));
+
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      var width = pdf.internal.pageSize.getWidth();
+      var height = pdf.internal.pageSize.getHeight();
+
+      let imagesData = [];
+
+      for (let i = 0; i < cards.length; i++) {
+        const element = cards[i];
+        const imageData = await html2canvas(element);
+        imagesData.push(imageData);
+      }
+
+      for (let i = 0; i < imagesData.length; i++) {
+        if (i !== 0) {
+          pdf.addPage(); // Add a new page except for the first page
+        }
+        const imgData = imagesData[i];
+        pdf.addImage(imgData, "JPEG", 0, 0, width, height);
+      }
+
+      pdf.save("chat.pdf");
+    } catch (error) {
+      console.log(error);
+      alert("something gone Worong");
+    }
+  };
+
+*/
