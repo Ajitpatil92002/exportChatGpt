@@ -30,7 +30,7 @@ const page = async ({ params }) => {
   return (
     <>
       <section className="w-full">
-        <h1 className="head_text text-center">
+        <h1 id="chatTitle" className="head_text text-center">
           <span className="blue_gradient">{chats.title}</span>
         </h1>
 

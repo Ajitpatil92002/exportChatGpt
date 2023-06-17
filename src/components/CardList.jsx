@@ -57,7 +57,7 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
     toast.success("Exporting to HTML File", { duration: 3000 });
   };
 
-  const generatePdf = async (data) => {
+  const generatePdf = async (data, chatTitle) => {
     const doc = new jsPDF();
 
     // Set initial y position for the content
@@ -68,7 +68,7 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
     doc.setFont("helvetica", "bold");
 
     // Add title
-    const title = "Question and Answer Sheet";
+    const title = `${chatTitle}`;
     const titleWidth =
       (doc.getStringUnitWidth(title) * doc.internal.getFontSize()) /
       doc.internal.scaleFactor;
@@ -84,7 +84,7 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
     data.forEach((item, index) => {
       // Add question
       doc.setFont("helvetica", "bold");
-      doc.text(`Question ${index + 1}:`, 20, y);
+      doc.text('Human Question', 20, y);
       y += 10;
       doc.setFont("helvetica", "normal");
       const questionLines = doc.splitTextToSize(item.question, 170);
@@ -92,10 +92,9 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
       y += questionLines.length * 7 + 5;
 
       // Add answer
-      doc.text(`Answer ${index + 1}:`, 20, y);
+      doc.text(`Ai Answer`, 20, y);
       y += 10;
       const answerLines = doc.splitTextToSize(item.answer, 170);
-      console.log(answerLines);
       doc.text(answerLines, 20, y);
       y += answerLines.length * 7 + 10;
 
@@ -112,6 +111,8 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
     let htmlprompt_card = Array.from(
       document.getElementsByClassName("prompt_card")
     );
+    let title = document.getElementById("chatTitle").innerText;
+    console.log(title);
 
     let data = [];
 
@@ -122,7 +123,7 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
       data.push({ question, answer });
     }
 
-    await generatePdf(data);
+    await generatePdf(data, title);
     setLoading(false);
 
     toast.success("PDF is Downloaded");
