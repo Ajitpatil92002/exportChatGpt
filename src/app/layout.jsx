@@ -98,7 +98,7 @@ export const metadata = {
     siteName: "Discover , Share & Export CHAT-GPT",
     images: [
       {
-        url: `${process.env.BASE_URL}/images/og-image.png`,
+        url: `${process.env.BASE_URL}/assets/images/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Discover , Share & Export CHAT-GPT",
@@ -124,7 +124,7 @@ export const metadata = {
       "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML, and audio formats. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
     images: [
       {
-        url: `${process.env.BASE_URL}/images/og-image.png`,
+        url: `${process.env.BASE_URL}/assets/images/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Discover , Share & Export CHAT-GPT",
