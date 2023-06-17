@@ -55,7 +55,7 @@ export default async function Home({ searchParams }) {
         <p className="desc text-center">
           Export_Chat_GPT is a tool for modern world to discover, share and
           export ChatGPT conversations into a variety of formats. <br /> Whether
-          you need a PDF, images, JSON, MD, HTML, or even audio , we've got you
+          you need a PDF, images, JSON, MD, HTML , we've got you
           covered.
         </p>
 

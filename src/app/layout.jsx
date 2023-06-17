@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Discover , Share & Export CHAT-GPT",
   description:
-    "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML, and audio formats. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
+    "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
   generator: "Discover , Share & Export CHAT-GPT",
   applicationName: "Discover , Share & Export CHAT-GPT",
   referrer: "origin-when-cross-origin",
@@ -93,7 +93,7 @@ export const metadata = {
   openGraph: {
     title: "Discover , Share & Export CHAT-GPT",
     description:
-      "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML, and audio formats. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
+      "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
     url: `${process.env.BASE_URL}`,
     siteName: "Discover , Share & Export CHAT-GPT",
     images: [
@@ -121,7 +121,7 @@ export const metadata = {
     site: "@exportChatGpt",
     title: "Discover , Share & Export CHAT-GPT",
     description:
-      "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML, and audio formats. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
+      "ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.",
     images: [
       {
         url: `${process.env.BASE_URL}/assets/images/og-image.png`,
