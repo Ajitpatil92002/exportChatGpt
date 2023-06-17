@@ -33,16 +33,16 @@ export const Pagination = ({ page, pageCount }) => {
 
   return (
     <>
-      <div className="items-center space-y-2 text-xs sm:space-y-0 sm:space-x-3 sm:flex">
+      <div className="items-center space-y-2 text-xs sm:space-y-0 sm:space-x-3 sm:flex mb-20">
         <span className="block">
           Page {page} of {pageCount}
         </span>
-        <div className="space-x-1">
+        <div className="flex-center space-x-2">
           <button
             title="previous"
             type="button"
             onClick={() => handlePaginate(-1)}
-            className={`inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow ${
+            className={`inline-flex items-center justify-center w-20 h-8 border rounded-md shadow ${
               isPrevDisabled() ? "disabled" : ""
             }`}
           >
@@ -57,15 +57,17 @@ export const Pagination = ({ page, pageCount }) => {
             >
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
+            <span>Previous</span>
           </button>
           <button
             title="next"
             type="button"
             onClick={() => handlePaginate(1)}
-            className={`inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow ${
+            className={`inline-flex items-center justify-center w-20 h-8 border rounded-md shadow ${
               isNextDisabled() ? "disabled" : ""
             }`}
           >
+            <span>Next</span>
             <svg
               viewBox="0 0 24 24"
               stroke="currentColor"
