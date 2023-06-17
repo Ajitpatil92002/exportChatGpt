@@ -1,4 +1,7 @@
+import jsPDF from "jspdf";
+import JSZip from "jszip";
 import toast from "react-hot-toast";
+import TurndownService from "turndown";
 
 export function countOccurenceOfWords(str) {
   // Words to ignore (prepositions and conjunctions)
@@ -211,10 +214,133 @@ export function downloadHTML(filename) {
   URL.revokeObjectURL(url);
 }
 
+export const generatePdf = async (data, chatTitle) => {
+  const doc = new jsPDF();
+
+  // Set initial y position for the content
+  let y = 20;
+
+  // Set font size and type for the title
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+
+  // Add title
+  const title = `${chatTitle}`;
+  const titleWidth =
+    (doc.getStringUnitWidth(title) * doc.internal.getFontSize()) /
+    doc.internal.scaleFactor;
+  const x = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
+  doc.text(title, x, y);
+  y += 15;
+
+  // Reset font size and type for the content
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+
+  // Loop through the data array
+  data.forEach((item, index) => {
+    // Add question
+    doc.setFont("helvetica", "bold");
+    doc.text("Human Question", 20, y);
+    y += 10;
+    doc.setFont("helvetica", "normal");
+    const questionLines = doc.splitTextToSize(item.question, 170);
+    doc.text(questionLines, 20, y);
+    y += questionLines.length * 7 + 5;
+
+    // Add answer
+    doc.text(`Ai Answer`, 20, y);
+    y += 10;
+    const answerLines = doc.splitTextToSize(item.answer, 170);
+    doc.text(answerLines, 20, y);
+    y += answerLines.length * 7 + 10;
+
+    doc.addPage();
+    y = 20;
+  });
+
+  // Save or download the PDF
+  doc.save("output.pdf");
+};
+
 export function isMatchingURLPattern(url) {
   const regex = /^https:\/\/chat\.openai\.com\/share\/[a-zA-Z0-9-]+$/;
   return regex.test(url);
 }
+
+export const convertHtmlToImagesAndDownloadZip = async (
+  htmlElements,
+  zipFileName
+) => {
+  const zip = new JSZip();
+
+  // Calculate the total number of conversions
+  const totalConversions = htmlElements.length;
+  let completedConversions = 0;
+
+  // Convert each HTML element to images
+  const promises = Array.from(htmlElements).map(async (htmlElement, index) => {
+    const canvas = await html2canvas(htmlElement);
+    const imageData = canvas.toDataURL("image/png");
+    const fileName = `image${index + 1}.png`;
+
+    // Add image data to the zip file
+    zip.file(fileName, imageData.split("base64,")[1], { base64: true });
+
+    // Update the progress
+    completedConversions++;
+    const progress = Math.round(
+      (completedConversions / totalConversions) * 100
+    );
+    setProgress(progress);
+  });
+
+  // Wait for all image conversions to complete
+  await Promise.all(promises);
+
+  // Generate the zip file
+  zip.generateAsync({ type: "blob" }).then((blob) => {
+    // Create a link element for the download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = zipFileName;
+
+    // Append the link to the document body and click it to initiate the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup: remove the link and revoke the URL
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  });
+};
+
+export const convertHtmlToMdAndDownload = async (htmlContent, fileName) => {
+  // Create a new instance of the Turndown service
+  const turndownService = new TurndownService();
+
+  // Convert HTML to Markdown
+  const markdownContent = turndownService.turndown(htmlContent);
+
+  // Create a Blob from the Markdown content
+  const blob = new Blob([markdownContent], { type: "text/markdown" });
+
+  // Create a URL for the Blob
+  const url = URL.createObjectURL(blob);
+
+  // Create a link element for the download
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+
+  // Append the link to the document body and click it to initiate the download
+  document.body.appendChild(link);
+  link.click();
+
+  // Cleanup: remove the link and revoke the URL
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+};
 
 export async function createChatApi(url) {
   try {
@@ -235,41 +361,3 @@ export async function createChatApi(url) {
     return false;
   }
 }
-
-
-
-/*
-
- const downloadPdf = async () => {
-    try {
-      const cards = Array.from(document.getElementsByClassName("prompt_card"));
-
-      const pdf = new jsPDF("p", "mm", "a4");
-
-      var width = pdf.internal.pageSize.getWidth();
-      var height = pdf.internal.pageSize.getHeight();
-
-      let imagesData = [];
-
-      for (let i = 0; i < cards.length; i++) {
-        const element = cards[i];
-        const imageData = await html2canvas(element);
-        imagesData.push(imageData);
-      }
-
-      for (let i = 0; i < imagesData.length; i++) {
-        if (i !== 0) {
-          pdf.addPage(); // Add a new page except for the first page
-        }
-        const imgData = imagesData[i];
-        pdf.addImage(imgData, "JPEG", 0, 0, width, height);
-      }
-
-      pdf.save("chat.pdf");
-    } catch (error) {
-      console.log(error);
-      alert("something gone Worong");
-    }
-  };
-
-*/

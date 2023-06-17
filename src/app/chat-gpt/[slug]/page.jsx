@@ -1,7 +1,6 @@
 import Badge from "@/components/Badge";
 import CardList from "@/components/CardList";
 import { getChatGpt } from "@/utils/Queries";
-import React from "react";
 
 export async function generateMetadata({ params }) {
   const chats = await getChatGpt(params.slug);
