@@ -1,6 +1,8 @@
 import prisma from "../../../utils/prismadb";
 
 export const GET = async (req) => {
+  const { searchParams } = new URL(req.url);
+
   try {
     const chats = await prisma.chat.findMany({
       include: {

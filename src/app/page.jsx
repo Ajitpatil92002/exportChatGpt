@@ -23,10 +23,9 @@ export default async function Home({ searchParams }) {
     currentPage = Number(searchParams.page);
   }
 
-  let {chats, chatCount} = await getData(currentPage);
+  let { chats, chatCount } = await getData(currentPage);
 
-
-  let totalPages = Math.ceil(chatCount/12);
+  let totalPages = Math.ceil(chatCount / 12);
 
   return (
     <>
@@ -38,7 +37,9 @@ export default async function Home({ searchParams }) {
         </h1>
         <p className="desc text-center">
           Export_Chat_GPT is a tool for modern world to discover, share and
-          export your GPT-CHAT
+          export ChatGPT conversations into a variety of formats. <br /> Whether
+          you need a PDF, images, JSON, MD, HTML, or even audio ,
+          we've got you covered.
         </p>
 
         {/* Feed */}
