@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import "../styles/globals.css";
 import hljs from "highlight.js";
 import { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react";
 
 import { Inter } from "next/font/google";
 
@@ -154,6 +155,7 @@ export default function RootLayout({ children }) {
         <main className="app">
           <Nav />
           {children}
+          <Analytics mode="production" />
         </main>
       </body>
     </html>
