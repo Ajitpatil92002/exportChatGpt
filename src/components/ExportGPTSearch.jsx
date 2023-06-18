@@ -6,16 +6,23 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { Model } from "./Model";
 
 const ExportGPTSearch = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isModelOpen, setIsModelOpen] = useState(false);
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsModelOpen(true);
+  };
+
+  const uploadChat = async () => {
+    setIsModelOpen(false);
     setLoading(true);
     if (isMatchingURLPattern(url)) {
       let respdata = await createChatApi(url);
@@ -34,7 +41,10 @@ const ExportGPTSearch = () => {
 
   return (
     <>
-      <form className="relative w-full flex-center flex-col" onSubmit={handleSubmit}>
+      <form
+        className="relative w-full flex-center flex-col"
+        onSubmit={handleSubmit}
+      >
         <input
           type="text"
           placeholder="Enter Your ChatGPT URL"
@@ -63,6 +73,14 @@ const ExportGPTSearch = () => {
           />
           <p>Please Wait Untill we analyse Your Chat ....</p>
         </div>
+      )}
+      {isModelOpen && (
+        <Model uploadChat={uploadChat} closeModel={() => setIsModelOpen(false)}>
+          <p className="text-base">
+            This Converstion will be displayed publicly on this website. Please
+            avoid including any sensitive or personal information.
+          </p>
+        </Model>
       )}
     </>
   );

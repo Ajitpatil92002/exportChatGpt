@@ -147,7 +147,7 @@ const CardList = ({ ChatsWithGPT, title, chatgptUrl }) => {
         {ChatsWithGPT.map((post, i) => (
           <Card key={i} answer={post.answer} question={post.text} />
         ))}
-        <div className="no-print flex items-center relative text-gray-200 bg-gray-800 px-4 py-2 text-xs font-sans justify-between rounded-t-md"></div>
+        <div className="no-print flex items-center relative text-gray-200 bg-black px-4 py-2 text-xs font-sans justify-between rounded-t-md"></div>
       </div>
     </>
   );
