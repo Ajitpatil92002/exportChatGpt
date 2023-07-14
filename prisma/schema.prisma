@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Chat {
   id         String     @id @default(auto()) @map("_id") @db.ObjectId
   questions  Question[]
