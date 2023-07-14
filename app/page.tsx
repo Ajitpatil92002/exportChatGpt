@@ -2,7 +2,7 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import { AddChatForm } from "@/components/add-chart-form"
-import ChatsList from "@/components/chart-list"
+import ChatsList from "@/components/chat-list"
 
 async function getData(page: number | string) {
   const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt?page=${page}`, {

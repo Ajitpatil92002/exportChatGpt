@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast"
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import Providers from "@/components/provider"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -155,12 +156,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Toaster />
-            <div className="main">
-              <div className="gradient" />
-            </div>
-            <SiteHeader />
-            <main className="app">{children}</main>
+            <Providers>
+              <Toaster />
+              <div className="main">
+                <div className="gradient" />
+              </div>
+              <SiteHeader />
+              <main className="app">{children}</main>
+            </Providers>
           </ThemeProvider>
         </body>
       </html>

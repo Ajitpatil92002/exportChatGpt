@@ -1,4 +1,6 @@
-import ChatsList from "@/components/chart-list"
+import SearchBar from "@/components/Search-chat"
+import ChatsList from "@/components/chat-list"
+import { Pagination } from "@/components/pagination"
 
 export async function generateMetadata({ params }: { params: any }) {
   return {
@@ -26,7 +28,7 @@ async function getData(page: string | number) {
 interface IsearchParams {
   searchParams: { page: number | string }
 }
-const page = async ({ searchParams }: IsearchParams) => {
+const ChatFeeds = async ({ searchParams }: IsearchParams) => {
   let currentPage = 1
 
   if (Number(searchParams.page) >= 1) {
@@ -47,12 +49,13 @@ const page = async ({ searchParams }: IsearchParams) => {
         <span className="blue_gradient">Unveiling the Power of AI</span>
         <span>🚀✨</span>
       </h1>
-
+      <SearchBar chats={chats} />
       <section className="feed">
         <ChatsList chats={chats} />
+        <Pagination page={currentPage} pageCount={totalPages} />
       </section>
     </>
   )
 }
 
-export default page
+export default ChatFeeds

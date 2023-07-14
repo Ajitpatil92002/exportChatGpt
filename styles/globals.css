@@ -258,7 +258,9 @@ list-style-type:lower-latin;
 margin-left:15px;
 }
 
-
+.disabled {
+  @apply opacity-50 cursor-not-allowed
+}
 .app {
 @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-2;
 }
@@ -301,7 +303,7 @@ margin-left:15px;
 
   /* Feed Component */
   .feed {
-    @apply mt-8 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+    @apply mt-2 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
   }
   .prompt_layout {
     @apply space-y-6 py-8 columns-1;
