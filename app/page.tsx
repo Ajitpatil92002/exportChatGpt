@@ -36,10 +36,10 @@ export default async function IndexPage({ searchParams }: IsearchParams) {
 
   return (
     <>
-      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+      <section className="grid items-center gap-6 pb-8 pt-6 md:py-10">
         <div className="flex-center w-full flex-col">
           <h1 className="head_text text-center">
-            Discover, share &
+            Discover,share &
             <br className="max-md:hidden" />
             <span className="orange_gradient">Export your GPT-CHAT</span>
           </h1>
