@@ -2,6 +2,7 @@ import jsPDF from "jspdf";
 import JSZip from "jszip";
 import toast from "react-hot-toast";
 import TurndownService from "turndown";
+import html2canvas from "html2canvas";
 
 export function countOccurenceOfWords(str) {
   // Words to ignore (prepositions and conjunctions)
@@ -274,10 +275,6 @@ export const convertHtmlToImagesAndDownloadZip = async (
 ) => {
   const zip = new JSZip();
 
-  // Calculate the total number of conversions
-  const totalConversions = htmlElements.length;
-  let completedConversions = 0;
-
   // Convert each HTML element to images
   const promises = Array.from(htmlElements).map(async (htmlElement, index) => {
     const canvas = await html2canvas(htmlElement);
@@ -286,13 +283,7 @@ export const convertHtmlToImagesAndDownloadZip = async (
 
     // Add image data to the zip file
     zip.file(fileName, imageData.split("base64,")[1], { base64: true });
-
-    // Update the progress
-    completedConversions++;
-    const progress = Math.round(
-      (completedConversions / totalConversions) * 100
-    );
-    setProgress(progress);
+    
   });
 
   // Wait for all image conversions to complete
@@ -309,6 +300,7 @@ export const convertHtmlToImagesAndDownloadZip = async (
     document.body.appendChild(link);
     link.click();
 
+    console.log("images Generated");
     // Cleanup: remove the link and revoke the URL
     document.body.removeChild(link);
     URL.revokeObjectURL(link.href);
