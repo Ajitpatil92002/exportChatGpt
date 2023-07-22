@@ -9,11 +9,13 @@ interface MainNavProps {
   items?: NavItem[]
 }
 
-export function MainNav({ items }: MainNavProps) {
+export async function MainNav({ items }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="flex items-center space-x-2">
-        <span className="orange_gradient inline-block text-sm font-bold sm:text-base ">{siteConfig.name}</span>
+        <span className="orange_gradient inline-block text-sm font-bold sm:text-base ">
+          {siteConfig.name}
+        </span>
       </Link>
       {items?.length ? (
         <nav className="flex gap-6">

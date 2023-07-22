@@ -49,7 +49,7 @@ const ChatFeeds = async ({ searchParams }: IsearchParams) => {
         <span className="blue_gradient">Unveiling the Power of AI</span>
         <span>🚀✨</span>
       </h1>
-      <SearchBar chats={chats} />
+      <SearchBar/>
       <section className="feed">
         <ChatsList chats={chats} />
         <Pagination page={currentPage} pageCount={totalPages} />

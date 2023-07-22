@@ -6,32 +6,15 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader2 } from "lucide-react"
+import { useSession } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import * as z from "zod"
 
-import { createChatApi, isMatchingURLPattern } from "@/lib/client-utils"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { createChatApi } from "@/lib/client-utils"
 
-import { Checkbox } from "./ui/checkbox"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form"
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form"
 import { Input } from "./ui/input"
-import { Label } from "./ui/label"
-import { Switch } from "./ui/switch"
 
 const formSchema = z.object({
   url: z
@@ -44,10 +27,12 @@ const formSchema = z.object({
 })
 
 export const AddChatForm = () => {
-  const [url, setUrl] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
   const router = useRouter()
+  const { data: session, status } = useSession()
+
+  let userId = session ? session.user.id : null
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,10 +42,9 @@ export const AddChatForm = () => {
   })
 
   const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    alert(JSON.stringify(values))
     setLoading(true)
 
-    let respdata = await createChatApi(values.url)
+    let respdata = await createChatApi(values.url, userId)
 
     if (respdata.slug) {
       router.push(`chat-gpt/${respdata.slug}`)

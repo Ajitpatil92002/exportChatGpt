@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Loading() {
   return (
-    <div className="prompt_layout mt-5">
+    <div className="prompt_layout mx-auto mt-5">
       <div className="prompt_card">
         <div className="wrapper flex-col justify-start md:flex md:flex-row md:items-center md:gap-5">
           <Skeleton className="h-12 w-12 rounded-full" />

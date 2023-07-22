@@ -162,7 +162,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <div className="gradient" />
               </div>
               <SiteHeader />
-              <main className="app">{children}</main>
+              {children}
             </Providers>
           </ThemeProvider>
         </body>

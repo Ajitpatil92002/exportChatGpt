@@ -1,8 +1,10 @@
 import Link from "next/link"
+
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 import { AddChatForm } from "@/components/add-chart-form"
 import ChatsList from "@/components/chat-list"
+import { Pagination } from "@/components/pagination"
 
 async function getData(page: number | string) {
   const res = await fetch(`${process.env.BASE_URL}/api/chat-gpt?page=${page}`, {
@@ -36,35 +38,38 @@ export default async function IndexPage({ searchParams }: IsearchParams) {
 
   return (
     <>
-      <section className="grid items-center gap-6 pb-8 pt-6 md:py-10">
-        <div className="flex-center w-full flex-col">
-          <h1 className="head_text text-center">
-            Discover,share &
-            <br className="max-md:hidden" />
-            <span className="orange_gradient">Export your GPT-CHAT</span>
-          </h1>
-          <p className="desc text-center">
-            Export_Chat_GPT is a tool for modern world to discover, share and
-            export ChatGPT conversations into a variety of formats.
-          </p>
-        </div>
+      <main className="app">
+        <section className="grid items-center gap-6 pb-8 pt-6 md:py-10">
+          <div className="flex-center w-full flex-col">
+            <h1 className="head_text text-center">
+              Discover,share &
+              <br className="max-md:hidden" />
+              <span className="orange_gradient">Export your GPT-CHAT</span>
+            </h1>
+            <p className="desc text-center">
+              Export_Chat_GPT is a tool for modern world to discover, share and
+              export ChatGPT conversations into a variety of formats.
+            </p>
+          </div>
 
-        <div className="flex-center gap-4">
-          <Link href={"/explore"} className={buttonVariants()}>
-            Explore ChatGPT Conversations
-          </Link>
-          <Link
-            href={siteConfig.links.github}
-            className={buttonVariants({ variant: "outline" })}
-          >
-            GitHub
-          </Link>
-        </div>
-      </section>
-      <section className="feed">
-        <AddChatForm />
-        <ChatsList chats={chats} />
-      </section>
+          <div className="flex-center gap-4">
+            <Link href={"/chat-gpt"} className={buttonVariants()}>
+              Explore ChatGPT Conversations
+            </Link>
+            <Link
+              href={siteConfig.links.github}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              GitHub
+            </Link>
+          </div>
+        </section>
+        <section className="feed">
+          <AddChatForm />
+          <ChatsList chats={chats} />
+          <Pagination page={currentPage} pageCount={totalPages} />
+        </section>
+      </main>
     </>
   )
 }

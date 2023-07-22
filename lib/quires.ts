@@ -1,14 +1,20 @@
-import { string_to_slug } from "./server-utils";
-import {db} from "@/lib/db";
+import { db } from "@/lib/db"
 
+import { string_to_slug } from "./server-utils"
 
-interface ICreateChat{
-  title:string
-  Chats:{question:string,answer:string}[]
-  chatgptUrl:string
+interface ICreateChat {
+  title: string
+  Chats: { question: string; answer: string }[]
+  chatgptUrl: string
+  userId: string | null
 }
 
-export async function CreateChat({ title, Chats, chatgptUrl }:ICreateChat) {
+export async function CreateChat({
+  title,
+  Chats,
+  chatgptUrl,
+  userId,
+}: ICreateChat) {
   let ChatsWithSchemaMatched = Chats.map((value) => {
     return {
       text: value.question,
@@ -17,10 +23,10 @@ export async function CreateChat({ title, Chats, chatgptUrl }:ICreateChat) {
           text: value.answer,
         },
       },
-    };
-  });
+    }
+  })
 
-  let slug = string_to_slug(title);
+  let slug = string_to_slug(title)
 
   const chat = await db.chat.create({
     data: {
@@ -30,6 +36,7 @@ export async function CreateChat({ title, Chats, chatgptUrl }:ICreateChat) {
       title,
       chatgptUrl,
       slug,
+      userId,
     },
     include: {
       questions: {
@@ -38,13 +45,13 @@ export async function CreateChat({ title, Chats, chatgptUrl }:ICreateChat) {
         },
       },
     },
-  });
-  await db.$disconnect();
+  })
+  await db.$disconnect()
 
-  return chat;
+  return chat
 }
 
-export async function checkChat(chatgptUrl:string) {
+export async function checkChat(chatgptUrl: string) {
   const ischatExit = await db.chat.findFirst({
     where: { chatgptUrl },
     include: {
@@ -54,16 +61,16 @@ export async function checkChat(chatgptUrl:string) {
         },
       },
     },
-  });
-  await db.$disconnect();
+  })
+  await db.$disconnect()
   if (ischatExit) {
-    return ischatExit;
+    return ischatExit
   } else {
-    return false;
+    return false
   }
 }
 
-export async function getChatGpt(slug:string) {
+export async function getChatGpt(slug: string) {
   try {
     const ischatExit = await db.chat.findFirst({
       where: { slug },
@@ -74,30 +81,28 @@ export async function getChatGpt(slug:string) {
           },
         },
       },
-    });
+    })
 
-    await db.$disconnect();
+    await db.$disconnect()
 
     if (ischatExit) {
-      return ischatExit;
+      return ischatExit
     } else {
-      return false;
+      return false
     }
   } catch (error) {
-    await db.$disconnect();
-    throw new Error("Something gone Wrong");
+    await db.$disconnect()
+    throw new Error("Something gone Wrong")
   }
 }
 
-export async function getChats({ page=0 }) {
-
-
-  const PER_PAGE = 2;
+export async function getChats({ page = 0 }) {
+  const PER_PAGE = 2
 
   const options = {
     take: PER_PAGE,
     skip: (page ? page - 1 : 0) * PER_PAGE,
-  };
+  }
 
   try {
     const chats = await db.chat.findMany({
@@ -109,22 +114,22 @@ export async function getChats({ page=0 }) {
           },
         },
       },
-    });
-    await db.$disconnect();
-    return chats;
+    })
+    await db.$disconnect()
+    return chats
   } catch (error) {
-    await db.$disconnect();
-    throw new Error("Something gone Wrong");
+    await db.$disconnect()
+    throw new Error("Something gone Wrong")
   }
 }
 
 export async function getTotalChatCount() {
   try {
-    const chatCount = await db.chat.count();
-    await db.$disconnect();
-    return chatCount;
+    const chatCount = await db.chat.count()
+    await db.$disconnect()
+    return chatCount
   } catch (error) {
-    await db.$disconnect();
-    throw new Error("Something gone Wrong");
+    await db.$disconnect()
+    throw new Error("Something gone Wrong")
   }
 }
