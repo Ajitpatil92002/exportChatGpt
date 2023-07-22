@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { buttonVariants } from "@/components/ui/button"
 import { AddChatForm } from "@/components/add-chart-form"
 import ChatsList from "@/components/chat-list"
@@ -66,6 +67,18 @@ export default async function IndexPage({ searchParams }: IsearchParams) {
         </section>
         <section className="feed">
           <AddChatForm />
+          <section className="container relative mx-auto mb-12 max-w-screen-sm px-8 py-16 text-left md:text-center">
+            <p className="mb-8 mt-2 text-4xl font-bold">
+              Like seriously, it&apos;s THIS easy
+            </p>
+            <AspectRatio ratio={16 / 9}>
+              <video width="800" height="600" poster="/opengraph-image.png" controls>
+                <source src="/assets/video.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </AspectRatio>
+          </section>
+
           <ChatsList chats={chats} />
           <Pagination page={currentPage} pageCount={totalPages} />
         </section>

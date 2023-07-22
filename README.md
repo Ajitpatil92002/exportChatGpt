@@ -1,22 +1,53 @@
-# next-template
+# Export Chat-GPT
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+An application built using the new router, server components and everything new in Next.js 13.
 
-## Usage
+## About this project
 
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
+ExportChatGPT is the ultimate conversation export solution that allows you to effortlessly convert your ChatGPT dialogues into PDF, images, zip files, JSON, MD, HTML. Preserve, analyze, and share your conversations in the most suitable way for your needs. Start exporting your chats with ExportChatGPT today.
 
 ## Features
 
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
+- New `/app` dir,
+- Routing, Layouts, Nested Layouts and Layout Groups
+- Data Fetching, Caching and Mutation
+- Loading UI
+- Route handlers
+- Metadata files
+- Server and Client Components
+- API Routes and Middlewares
+- Authentication using **NextAuth.js**
+- ORM using **Prisma**
+- Database on **MongoDB Atlas**
+- UI Components built using **Radix UI**
+- Subscriptions using **Stripe**
+- Styled using **Tailwind CSS**
+- Validations using **Zod**
+- Written in **TypeScript**
 
-## License
+## Roadmap
 
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+- [ ] Add Star features to chats
+- [ ] Update Chats with chatGPT Public url
+- [ ] Select No. of Questions of chats to be export
+- [ ] Add private gpt Chats Export and save
+
+## Running Locally
+
+1. Install dependencies using npm:
+
+```sh
+npm install
+```
+
+2. Copy `.env.example` to `.env.local` and update the variables.
+
+```sh
+cp .env.example .env.local
+```
+
+3. Start the development server:
+
+```sh
+npm run dev
+```

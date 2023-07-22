@@ -202,10 +202,6 @@ export const generatePdf = async (
   data.forEach((item, index) => {
     // Add question
     doc.setFont("helvetica", "bold")
-    doc.text("Human Question", 20, y)
-    y += 10
-    doc.setFont("helvetica", "normal")
-
     const questionLines = doc.splitTextToSize(
       item.question ? item.question : "",
       170
@@ -214,8 +210,7 @@ export const generatePdf = async (
     y += questionLines.length * 7 + 5
 
     // Add answer
-    doc.text(`Ai Answer`, 20, y)
-    y += 10
+    doc.setFont("helvetica", "normal")
     const answerLines = doc.splitTextToSize(item.answer, 170)
     doc.text(answerLines, 20, y)
     y += answerLines.length * 7 + 10

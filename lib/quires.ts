@@ -9,12 +9,15 @@ interface ICreateChat {
   userId: string | null
 }
 
+//  Prisma Query for create Chat
 export async function CreateChat({
   title,
   Chats,
   chatgptUrl,
   userId,
 }: ICreateChat) {
+
+  // Formating Chats 
   let ChatsWithSchemaMatched = Chats.map((value) => {
     return {
       text: value.question,
@@ -51,6 +54,7 @@ export async function CreateChat({
   return chat
 }
 
+//  Prisma Query for check Chat
 export async function checkChat(chatgptUrl: string) {
   const ischatExit = await db.chat.findFirst({
     where: { chatgptUrl },
@@ -70,6 +74,7 @@ export async function checkChat(chatgptUrl: string) {
   }
 }
 
+//  Prisma Query for get Chat
 export async function getChatGpt(slug: string) {
   try {
     const ischatExit = await db.chat.findFirst({
@@ -96,6 +101,7 @@ export async function getChatGpt(slug: string) {
   }
 }
 
+//  Prisma Query for get Chats with pagination
 export async function getChats({ page = 0 }) {
   const PER_PAGE = 2
 
@@ -123,6 +129,7 @@ export async function getChats({ page = 0 }) {
   }
 }
 
+//  Prisma Query for Total count of Chats
 export async function getTotalChatCount() {
   try {
     const chatCount = await db.chat.count()

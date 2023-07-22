@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
+//  Api for scraping cht Gpt Public URL and getting chats Data 
 export async function getGptChat(url:string) {
   let queryString = qs.stringify({
     url,
