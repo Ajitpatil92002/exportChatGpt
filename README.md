@@ -31,6 +31,7 @@ ExportChatGPT is the ultimate conversation export solution that allows you to ef
 - [ ] Update Chats with chatGPT Public url
 - [ ] Select No. of Questions of chats to be export
 - [ ] Add private gpt Chats Export and save
+- [ ] Remove Issue : chats of each questions with answer should add to dynamically nextPage  of pdf if current page is full While Exporting it in PDF format
 
 ## Running Locally
 
