@@ -39,12 +39,6 @@ export async function SiteHeader() {
                 >
                   Login
                 </Link>
-                <Link
-                  href={"/register"}
-                  className={cn(buttonVariants({ variant: "ghost" }))}
-                >
-                  Signup
-                </Link>
               </>
             )}
           </nav>
