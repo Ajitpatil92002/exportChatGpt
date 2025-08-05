@@ -1,3 +1,5 @@
+"use server"
+
 export async function scrapeChats(url: string) {
   // Dynamically import the right packages for Vercel or local
   const isVercel = !!process.env.VERCEL_ENV

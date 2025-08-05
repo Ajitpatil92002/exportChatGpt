@@ -4,6 +4,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
 }
 
 export default nextConfig
