@@ -5,6 +5,7 @@ const nextConfig = {
     appDir: true,
     serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
   },
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
 }
 
 export default nextConfig
