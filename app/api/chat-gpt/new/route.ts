@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/auth"
 import { CreateChat, checkChat } from "@/lib/quires"
-import { getGptChat } from "@/lib/server-utils"
+import { scrapeChats } from "@/lib/server-utils"
 
 export const POST = async (req: Request, res: Response) => {
   const session = await getServerSession(authOptions)
@@ -14,7 +14,7 @@ export const POST = async (req: Request, res: Response) => {
     let isChatExits = await checkChat(chatgptUrl)
 
     if (!isChatExits) {
-      let { title, Chats } = await getGptChat(chatgptUrl)
+      let { title, Chats } = await scrapeChats(chatgptUrl)
 
       const createdChat = await CreateChat({
         title,
